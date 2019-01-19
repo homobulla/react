@@ -7,6 +7,7 @@ import {
     Route,
     hashHistory,
     BrowserRouter as Router,
+    Switch,
     Link
 } from 'react-router-dom'
 
@@ -37,7 +38,20 @@ const NameList = ({ arrName }) => {
 NameList.proptypes = {
     arrName: PropTypes.array
 }
-
+// class NameList extends React.Component {
+//     constructor(props) {
+//         super(props)
+//     }
+//     render() {
+//         return (
+//             <ul>
+//                 {this.props.arrName.map((name, index) => {
+//                     return <li key={index}>{name}</li>
+//                 })}
+//             </ul>
+//         )
+//     }
+// }
 class App extends React.Component {
     constructor(props) {
         super(props)
@@ -48,7 +62,7 @@ class App extends React.Component {
             <div>
                 <h1 onClick={this.test}>name list</h1>
                 <h1>Hello, {this.props.name}</h1>
-                <Link to="/user">About</Link>
+                <Link to="/#/user">About</Link>
                 <NameList arrName={arrName} />
             </div>
         )
@@ -59,10 +73,11 @@ App.propTypes = {
     name: PropTypes.string
 }
 ReactDOM.render(
-    <Router history={hashHistory}>
-        <Route path="/user" component={NameList}>
-            {/* <Route path="/user" component={user} /> */}
-        </Route>
+    <Router history={history}>
+        <Switch>
+            <Route path="/" component={App} />
+            <Route path="/user" component={user} />
+        </Switch>
     </Router>,
     document.getElementById('root')
 )
